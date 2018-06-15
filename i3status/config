@@ -8,10 +8,10 @@
 
 general {
         colors = true
-        interval = 5  
-    	color_good =     '#66d9ef' 
-    	color_degraded = '#fd971f'  
-    	color_bad =      '#f92672'
+        interval = 5
+        color_good =     '#66d9ef'
+        color_degraded = '#fd971f'
+        color_bad =      '#f92672'
 }
 
 order += "disk /"
@@ -53,7 +53,7 @@ tztime local {
 }
 
 load {
-        format = "  %1min"  
+        format = "  %1min"
 }
 
 disk "/" {
