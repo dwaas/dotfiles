@@ -1,0 +1,36 @@
+#! /usr/bin/bash
+BASENAME=$(basename $0)
+
+USAGE="
+USAGE
+        $BASENAME              - display this prompt
+        $BASENAME <command>    - trigger <command> for 'file save events' from the current directory
+
+CAVEATS
+        do NOT run command lists. For instance:
+
+                $BASENAME compile.sh && run.sh          # BAD  !!
+                $BASENAME compileAndRun.sh              # ok
+
+        The first will eventually fill all your CPU cycles by
+        continuously spawning background processes appended with &.
+
+        Cave canem.
+
+DEPENDS ON
+        inotifywait(1), from inotify-tools
+
+INSPIRED BY
+        https://exyr.org/2011/inotify-run/ but made vim compatible
+"
+
+[[ $# == 0 ]] && printf "$USAGE\n" && exit
+
+while RET=$(inotifywait -qre close_write --format '%f' .)
+do
+        if [ ! -f $RET ]; then continue; fi
+        printf "\n$RET has been changed. Executing command...\n"
+        echo "$" $@
+        "$@"
+done
+
