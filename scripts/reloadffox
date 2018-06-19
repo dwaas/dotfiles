@@ -1,0 +1,12 @@
+#! /usr/bin/bash
+# reload active browser window
+# CAVEAT!!!: make sure one and only one browser window is visible in the current workspace"
+
+readonly RELOAD="F5"
+readonly CALLER=$(xdotool getactivewindow)
+
+
+xdotool search --onlyvisible -name 'Mozilla Firefox' windowactivate &&
+xdotool key --clearmodifiers $RELOAD
+
+xdotool windowactivate $CALLER
