@@ -1,0 +1,37 @@
+#! /usr/bin/bash -eu
+
+readonly BASENAME=$(basename $0)
+readonly USAGE="
+USAGE
+        $BASENAME              - display this prompt
+        $BASENAME directory    - returns the concatenation of one random line
+                                  from each file in the directory
+NOTE
+        - directories will be ignored
+        - the order of the concatenation depends on the filenames
+
+EXAMPLES
+
+Random Chords
+
+        Precondition: following directory tree.
+        Note: The numbering in the filename is required.
+
+                $ ls chords/
+                01_notes.dat 02_alterations.dat
+
+        Loop Chord Generation:
+                $ while scramble chords; do sleep 3; done
+                G
+                A
+                E#
+
+DEPENDS ON
+        find(1), shuf(1), tr(1)
+"
+
+: ${1:?"$USAGE"}
+readonly DIR=$1
+
+OUTPUT=$(find $DIR -maxdepth 1 -type f -not -path '*/\.*' -exec shuf -n1 {} \; | tr -d '\n')
+printf "$OUTPUT\n"
