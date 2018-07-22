@@ -7,6 +7,9 @@ set shiftwidth=8
 set tabstop=8
 set expandtab "for python
 
+"Grep
+command! -nargs=+ Grep execute 'silent grep! -I -r -n  . -e <args>' | copen | execute 'silent /<args>'
+
 "BUFFERS
 :nnoremap <C-j> :bprevious<CR>
 :nnoremap <C-k> :bnext<CR>
